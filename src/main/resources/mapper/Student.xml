@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.teachingonlinebackend.mapper.StudentMapper">
+    <update id="update">
+        update student
+        <set>
+            <if test="stdname != null">
+                stdname = #{stdname},
+            </if>
+            <if test="stdnum != null">
+                stdnum = #{stdnum},
+            </if>
+            <if test="dept != null">
+                dept = #{dept}
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+
+    </update>
+</mapper>
