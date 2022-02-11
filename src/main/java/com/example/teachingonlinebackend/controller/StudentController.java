@@ -62,7 +62,7 @@ public class StudentController {
     *
      */
     @GetMapping("/page")
-    public IPage<Student> queryPage(@RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam String stdname) {
+    public IPage<Student> queryPage(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
 //        pageNum = (pageNum - 1) * pageSize;
 //        Integer total = studentMapper.queryTotal();
 //        List<Student> data = studentMapper.queryPage(pageNum, pageSize);
@@ -71,7 +71,7 @@ public class StudentController {
 //        res.put("total",total);
         IPage<Student> page = new Page<>(pageNum, pageSize);
         QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like("stdname",stdname);
+//        queryWrapper.like("stdname",stdname);
         IPage<Student> studentPage =  studentService.page(page, queryWrapper);
         return studentPage;
     }
