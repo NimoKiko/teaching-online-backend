@@ -1,5 +1,6 @@
 package com.example.teachingonlinebackend.controller;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -33,8 +34,6 @@ public class StudentController {
 //        return studentMapper.queryAll();
         return studentService.list();
     }
-
-
     /*
     * 新增/更新学生接口
     *  /std/addOrUpdate
@@ -44,18 +43,20 @@ public class StudentController {
     public boolean save(@RequestBody Student student) {
         return studentService.saveStd(student);
     }
-
     /*
     * 删除学生接口
     *   /std/deleteStd
     * DELETE请求
+    * 根据学号删除学生
     * */
     @DeleteMapping("/deleteStd/{id}")
-    public boolean delete(@PathVariable Integer id) {
-//        return studentMapper.deleteById(id);
-        return studentService.removeById(id);  //mybatis-plus自带的方法
+    public boolean delete(@PathVariable String id) {
+//        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.select("stdnum")
+//                    .eq("stdnum",stdnum);
+//        return studentService.remove(queryWrapper);
+        return studentService.removeById(id);
     }
-
     /*
     * 分页查询接口
     *@RequestParam注解接收 ?pageNum=1&pageSize=10 这样的参数
@@ -72,6 +73,7 @@ public class StudentController {
         IPage<Student> page = new Page<>(pageNum, pageSize);
         QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
 //        queryWrapper.like("stdname",stdname);
+        queryWrapper.orderByDesc("create_time");
         IPage<Student> studentPage =  studentService.page(page, queryWrapper);
         return studentPage;
     }
