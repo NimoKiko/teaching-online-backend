@@ -49,13 +49,12 @@ public class StudentController {
     * DELETE请求
     * 根据学号删除学生
     * */
-    @DeleteMapping("/deleteStd/{id}")
-    public boolean delete(@PathVariable String id) {
-//        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.select("stdnum")
-//                    .eq("stdnum",stdnum);
-//        return studentService.remove(queryWrapper);
-        return studentService.removeById(id);
+    @DeleteMapping("/deleteStd")
+    public boolean delete(@RequestParam String stdnum) {
+        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("stdnum")
+                    .eq("stdnum",stdnum);
+        return studentService.remove(queryWrapper);
     }
     /*
     * 分页查询接口
