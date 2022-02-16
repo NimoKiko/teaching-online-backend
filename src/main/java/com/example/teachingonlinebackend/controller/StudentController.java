@@ -1,18 +1,13 @@
 package com.example.teachingonlinebackend.controller;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.teachingonlinebackend.entity.Student;
-import com.example.teachingonlinebackend.mapper.StudentMapper;
-import com.example.teachingonlinebackend.service.StudentService;
-import org.apache.ibatis.annotations.Delete;
+import com.example.teachingonlinebackend.service.Impl.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +18,7 @@ public class StudentController {
 
     //注入service层
     @Autowired
-    private StudentService studentService;
+    private StudentServiceImpl studentServiceImpl;
 
     /*
     * 查询所有数据接口
@@ -32,7 +27,7 @@ public class StudentController {
     @GetMapping("/queryAll")
     public List<Student> query() {
 //        return studentMapper.queryAll();
-        return studentService.list();
+        return studentServiceImpl.list();
     }
     /*
     * 新增/更新学生接口
@@ -41,7 +36,7 @@ public class StudentController {
     * */
     @PostMapping("/addOrUpdate")
     public boolean save(@RequestBody Student student) {
-        return studentService.saveStd(student);
+        return studentServiceImpl.saveStd(student);
     }
     /*
     * 删除学生接口
@@ -50,30 +45,72 @@ public class StudentController {
     * 根据学号删除学生
     * */
     @DeleteMapping("/deleteStd")
-    public boolean delete(@RequestParam String stdnum) {
-        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
-        queryWrapper.select("stdnum")
-                    .eq("stdnum",stdnum);
-        return studentService.remove(queryWrapper);
+    public boolean delete(@RequestParam Integer id) {
+//        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.select("stdnum")
+//                    .eq("stdnum",stdnum);
+//        return studentService.remove(queryWrapper);
+        return studentServiceImpl.removeById(id);
     }
     /*
     * 分页查询接口
     *@RequestParam注解接收 ?pageNum=1&pageSize=10 这样的参数
     *
      */
-    @GetMapping("/page")
-    public IPage<Student> queryPage(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
-//        pageNum = (pageNum - 1) * pageSize;
-//        Integer total = studentMapper.queryTotal();
-//        List<Student> data = studentMapper.queryPage(pageNum, pageSize);
-//        Map<String ,Object> res = new HashMap<>();
-//        res.put("data",data);
-//        res.put("total",total);
+    @PostMapping("/page")
+    public IPage<Student> queryPage(@RequestBody Map<String,Object> params) {
+        System.out.println(params);
+        Integer pageNum = (Integer) params.get("pageNum");
+        Integer pageSize = (Integer) params.get("pageSize");
+        String stdname = (String) params.get("stdname");
+        String stdnum = (String) params.get("stdnum");
+        String dept = (String) params.get("dept");
+        String sex = (String) params.get("sex");
+
         IPage<Student> page = new Page<>(pageNum, pageSize);
         QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
 //        queryWrapper.like("stdname",stdname);
         queryWrapper.orderByDesc("create_time");
-        IPage<Student> studentPage =  studentService.page(page, queryWrapper);
+        if(!"".equals(stdname)) {
+            queryWrapper.like("stdname",stdname);
+        }
+        if(!"".equals(stdnum)) {
+            queryWrapper.like("stdnum",stdnum);
+        }
+        if(!"".equals(dept)) {
+            queryWrapper.like("dept",dept);
+        }
+        IPage<Student> studentPage =  studentServiceImpl.page(page, queryWrapper);
         return studentPage;
     }
+//    @GetMapping("/page")
+//    public IPage<Student> queryPage(@RequestParam Integer pageNum,
+//                                    @RequestParam Integer pageSize,
+//                                    @RequestParam(defaultValue = "") String stdname,
+//                                    @RequestParam(defaultValue = "") String stdnum,
+//                                    @RequestParam(defaultValue = "") String dept) {
+////        pageNum = (pageNum - 1) * pageSize;
+////        Integer total = studentMapper.queryTotal();
+////        List<Student> data = studentMapper.queryPage(pageNum, pageSize);
+////        Map<String ,Object> res = new HashMap<>();
+////        res.put("data",data);
+////        res.put("total",total);
+//        IPage<Student> page = new Page<>(pageNum, pageSize);
+//        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+////        queryWrapper.like("stdname",stdname);
+//        queryWrapper.orderByDesc("create_time");
+//        if(!"".equals(stdname)) {
+//            queryWrapper.like("stdname",stdname);
+//        }
+//        if(!"".equals(stdnum)) {
+//            queryWrapper.like("stdnum",stdnum);
+//        }
+//        if(!"".equals(dept)) {
+//            queryWrapper.like("dept",dept);
+//        }
+//        IPage<Student> studentPage =  studentServiceImpl.page(page, queryWrapper);
+//        return studentPage;
+//    }
+
+
 }

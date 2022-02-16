@@ -1,5 +1,6 @@
 package com.example.teachingonlinebackend.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -9,9 +10,9 @@ import lombok.Data;
 public class Student {
 
     //唯一标识 @TableId注解 标注主键 如果变量名和数据库保持一致可以不写
-
+    @TableId(type = IdType.AUTO)
+    private Integer id;
     //学号
-    @TableId
     private String stdnum;
     //姓名
     private String stdname;
