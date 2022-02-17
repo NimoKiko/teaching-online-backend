@@ -14,7 +14,7 @@ public class Lesson {
     private Integer id;
     //课程名称
     @TableField("lesson_name")
-    private String name;
+    private String lessonname;
     //任课教师工号
     private String worknum;
     //任课教师名称

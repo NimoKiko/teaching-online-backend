@@ -49,19 +49,19 @@ public class LessonController {
     public IPage<Lesson> queryPage(@RequestBody JSONObject params){
         Integer pageNum = params.getInteger("pageNum");
         Integer pageSize = params.getInteger("pageSize");
-        String name = params.getString("name");
+        String lessonname = params.getString("lessonname");
         String teaname = params.getString("teaname");
 
         IPage<Lesson> page = new Page<>(pageNum,pageSize);
         QueryWrapper<Lesson> queryWrapper = new QueryWrapper<>();
 
-        if(!"".equals(name)){
-            queryWrapper.like("lesson_name",name);
+        if(!"".equals(lessonname)){
+            queryWrapper.like("lesson_name",lessonname);
         }
         if(!"".equals(teaname)){
             queryWrapper.like("teaname",teaname);
         }
-        queryWrapper.orderByDesc("create_time");
+//        queryWrapper.orderByDesc("create_time");
         IPage<Lesson> lessonIPage = lessonServiceImpl.page(page,queryWrapper);
         return lessonIPage;
     }
