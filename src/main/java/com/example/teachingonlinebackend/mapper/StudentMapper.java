@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
-//@Mapper
+@Mapper
 public interface StudentMapper extends BaseMapper<Student> {
 
 //    @Select("select * from student")

@@ -71,6 +71,7 @@ public class TeacherController {
         if (!"".equals(type)) {
             queryWrapper.like("type", type);
         }
+        queryWrapper.orderByDesc("create_time");
         IPage<Teacher> teacherIPage = teacherServiceImpl.page(page,queryWrapper);
         return teacherIPage;
     }
