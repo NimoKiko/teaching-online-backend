@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.teachingonlinebackend.controller.dto.UserDto;
 import com.example.teachingonlinebackend.entity.Teacher;
 import com.example.teachingonlinebackend.service.Impl.TeacherServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +75,16 @@ public class TeacherController {
         queryWrapper.orderByDesc("create_time");
         IPage<Teacher> teacherIPage = teacherServiceImpl.page(page,queryWrapper);
         return teacherIPage;
+    }
+
+    /*
+    * 登录接口
+    * url:/tea/login
+    * 请求方式：post
+    *
+    * */
+    @PostMapping("/login")
+    public String login(@RequestBody UserDto userDto){
+        return teacherServiceImpl.login(userDto);
     }
 }
