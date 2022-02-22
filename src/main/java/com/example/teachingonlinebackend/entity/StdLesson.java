@@ -13,7 +13,9 @@ public class StdLesson {
     private Integer lessonId;
     //课程名称
     @TableField("lesson_name")
-    private String lessonname;
+    private String lessonName;
+    //任课教师
+    private String teaname;
     //学生学号
     private String stdnum;
     //学生姓名

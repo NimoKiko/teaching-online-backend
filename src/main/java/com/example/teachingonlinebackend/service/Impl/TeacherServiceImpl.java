@@ -3,6 +3,7 @@ package com.example.teachingonlinebackend.service.Impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.teachingonlinebackend.controller.dto.UserDto;
+import com.example.teachingonlinebackend.entity.Student;
 import com.example.teachingonlinebackend.entity.Teacher;
 import com.example.teachingonlinebackend.mapper.TeacherMapper;
 import com.example.teachingonlinebackend.service.TeacherService;
@@ -26,17 +27,22 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         String worknum = userDto.getWorknum();
         String password = userDto.getPassword();
 
-        System.out.println(worknum);
         String result = null;
-
         List<Teacher> user = teacherMapper.getAccount(worknum,password);
         if(!user.isEmpty()){
             result = "TEACHER";
         } else{
-            if(worknum == "admin" && password == "123456") {
+            if(worknum.equals("admin") && password.equals("123456")) {
                 result = "ADMIN";
             } else {
-                result = "ERROR";
+                String stdnum = worknum;
+                List<Student> stdUser = teacherMapper.getStudentAccount(stdnum,password);
+                if(!stdUser.isEmpty()){
+                    result = "STUDENT";
+                } else{
+                    result = "ERROR";
+                }
+
             }
         }
         return result;

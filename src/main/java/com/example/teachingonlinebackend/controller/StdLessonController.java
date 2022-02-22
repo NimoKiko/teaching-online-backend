@@ -31,4 +31,18 @@ public class StdLessonController {
         return stdLessonService.list(queryWrapper);
     }
 
+    /*
+    *根据stdnum获取对应的学生参与的课程
+    * url:/stdLesson/getStudentByNum
+    * 请求方式：get
+    *
+    * */
+    @GetMapping("/getStudentByNum")
+    public List<StdLesson> getListByNum(@RequestParam Integer id){
+        QueryWrapper<StdLesson> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("*").eq("stdnum",id);
+
+        return stdLessonService.list(queryWrapper);
+    }
+
 }
