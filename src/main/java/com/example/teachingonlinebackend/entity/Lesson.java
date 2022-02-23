@@ -21,4 +21,6 @@ public class Lesson {
     private  String teaname;
     @TableField("total_std")
     private Integer total;
+    //邀请码
+    private String inviteCode;
 }

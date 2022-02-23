@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.teachingonlinebackend.entity.StdLesson;
 import com.example.teachingonlinebackend.service.Impl.StdLessonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,6 +40,18 @@ public class StdLessonController {
         queryWrapper.select("*").eq("stdnum",id);
 
         return stdLessonService.list(queryWrapper);
+    }
+
+    /*
+    * 根据邀请码将学生加入课程
+    * url:/stdLesson/inviteStd
+    * 请求方式：get
+    *
+    * */
+    @GetMapping("/inviteStd")
+    public boolean inviteStd(@RequestParam String stdnum, @RequestParam String inviteCode){
+
+        return stdLessonService.saveInvite(stdnum,inviteCode);
     }
 
 }

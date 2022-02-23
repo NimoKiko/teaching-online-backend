@@ -8,6 +8,8 @@ import com.example.teachingonlinebackend.service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
+
 @Service
 public class LessonServiceImpl extends ServiceImpl<LessonMapper, Lesson> implements LessonService {
 
@@ -19,6 +21,37 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, Lesson> impleme
             String teaname = lesson.getTeaname();
             String worknum = lessonMapper.getWorknum(teaname);
             lesson.setWorknum(worknum);
+
+            if(lesson.getInviteCode().equals("")){
+                String inviteCode = getRandom();
+                lesson.setInviteCode(inviteCode);
+            }
+
         return saveOrUpdate(lesson);
+    }
+
+    //生成随机数
+    public String getRandom(){
+        int length = 8;
+        Random random=new Random();
+        StringBuffer sb=new StringBuffer();
+        for(int i=0;i<length;i++){
+            int number=random.nextInt(3);
+            long result=0;
+            switch(number){
+                case 0:
+                    result=Math.round(Math.random()*25+65);
+                    sb.append(String.valueOf((char)result));
+                    break;
+                case 1:
+                    result=Math.round(Math.random()*25+97);
+                    sb.append(String.valueOf((char)result));
+                    break;
+                case 2:
+                    sb.append(String.valueOf(new Random().nextInt(10)));
+                    break;
+            }
+        }
+        return sb.toString();
     }
 }
