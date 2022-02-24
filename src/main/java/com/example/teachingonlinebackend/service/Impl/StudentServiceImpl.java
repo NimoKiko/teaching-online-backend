@@ -1,5 +1,6 @@
 package com.example.teachingonlinebackend.service.Impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.teachingonlinebackend.entity.Student;
 import com.example.teachingonlinebackend.mapper.StudentMapper;
@@ -10,24 +11,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> implements StudentService {
 
-//    @Autowired
-//    private StudentMapper studentMapper;
+    @Autowired
+    private StudentMapper studentMapper;
 
-//    public Integer save(Student student){
-//        if(student.getId() == null) {               //找不到id就插入
-//            return studentMapper.insert(student);
-//        } else {                                    //找到id就修改
-//            return studentMapper.update(student);
-//        }
-//    }
+
     public boolean saveStd(Student student){
-//        if(student.getId() == null){
-//            return save(student);  //mybatis-plus提供的插入数据的方法
-//        } else {
-//            return updateById(student);
-//        }
-
         return saveOrUpdate(student);
+    }
 
+    @Override
+    public boolean updateSex(String stdnum, String sex) {
+        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+
+        queryWrapper.select("sex").eq("stdnum",stdnum);
+
+        Student item = new Student();
+        item.setSex(sex);
+
+        return update(item,queryWrapper);
     }
 }

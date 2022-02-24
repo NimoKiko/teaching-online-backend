@@ -35,7 +35,7 @@ public class StdLessonController {
     *
     * */
     @GetMapping("/getStudentByNum")
-    public List<StdLesson> getListByNum(@RequestParam Integer id){
+    public List<StdLesson> getListByNum(@RequestParam String id){
         QueryWrapper<StdLesson> queryWrapper = new QueryWrapper<>();
         queryWrapper.select("*").eq("stdnum",id);
 

@@ -26,7 +26,6 @@ public class StudentController {
     */
     @GetMapping("/queryAll")
     public List<Student> query() {
-//        return studentMapper.queryAll();
         return studentServiceImpl.list();
     }
     /*
@@ -46,10 +45,6 @@ public class StudentController {
     * */
     @DeleteMapping("/deleteStd")
     public boolean delete(@RequestParam Integer id) {
-//        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.select("stdnum")
-//                    .eq("stdnum",stdnum);
-//        return studentService.remove(queryWrapper);
         return studentServiceImpl.removeById(id);
     }
     /*
@@ -83,34 +78,19 @@ public class StudentController {
         IPage<Student> studentPage =  studentServiceImpl.page(page, queryWrapper);
         return studentPage;
     }
-//    @GetMapping("/page")
-//    public IPage<Student> queryPage(@RequestParam Integer pageNum,
-//                                    @RequestParam Integer pageSize,
-//                                    @RequestParam(defaultValue = "") String stdname,
-//                                    @RequestParam(defaultValue = "") String stdnum,
-//                                    @RequestParam(defaultValue = "") String dept) {
-////        pageNum = (pageNum - 1) * pageSize;
-////        Integer total = studentMapper.queryTotal();
-////        List<Student> data = studentMapper.queryPage(pageNum, pageSize);
-////        Map<String ,Object> res = new HashMap<>();
-////        res.put("data",data);
-////        res.put("total",total);
-//        IPage<Student> page = new Page<>(pageNum, pageSize);
-//        QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
-////        queryWrapper.like("stdname",stdname);
-//        queryWrapper.orderByDesc("create_time");
-//        if(!"".equals(stdname)) {
-//            queryWrapper.like("stdname",stdname);
-//        }
-//        if(!"".equals(stdnum)) {
-//            queryWrapper.like("stdnum",stdnum);
-//        }
-//        if(!"".equals(dept)) {
-//            queryWrapper.like("dept",dept);
-//        }
-//        IPage<Student> studentPage =  studentServiceImpl.page(page, queryWrapper);
-//        return studentPage;
-//    }
+
+    /*
+    * 修改学生性别的接口
+    * url:/std/updateSex
+    * 请求方式：get
+    *
+    * */
+    @GetMapping("/updateSex")
+    public boolean stdUpdateSex(@RequestParam String stdnum, @RequestParam String sex){
+
+        return studentServiceImpl.updateSex(stdnum,sex);
+    }
+
 
 
 }

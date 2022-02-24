@@ -8,4 +8,6 @@ public interface TeacherService extends IService<Teacher> {
     boolean saveTea(Teacher teacher);
 
     String login(UserDto userDto);
+
+    boolean updateSex(String teanum,String sex);
 }

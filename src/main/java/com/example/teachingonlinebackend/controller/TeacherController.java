@@ -87,4 +87,16 @@ public class TeacherController {
     public String login(@RequestBody UserDto userDto){
         return teacherServiceImpl.login(userDto);
     }
+
+    /*
+    * 教师用户修改性别接口
+    * url:/tea/updateSex
+    * 请求方式：get
+    *
+    * */
+    @GetMapping("/updateSex")
+    public boolean teaUpdateSex(@RequestParam String worknum, @RequestParam String sex){
+
+        return teacherServiceImpl.updateSex(worknum,sex);
+    }
 }

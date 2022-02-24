@@ -47,4 +47,15 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         }
         return result;
     }
+
+    @Override
+    public boolean updateSex(String worknum, String sex) {
+        QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("sex").eq("worknum",worknum);
+
+        Teacher item = new Teacher();
+        item.setSex(sex);
+
+        return update(item,queryWrapper);
+    }
 }
