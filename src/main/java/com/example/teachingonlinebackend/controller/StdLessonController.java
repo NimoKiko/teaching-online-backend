@@ -1,5 +1,6 @@
 package com.example.teachingonlinebackend.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.teachingonlinebackend.entity.StdLesson;
 import com.example.teachingonlinebackend.service.Impl.StdLessonServiceImpl;
@@ -52,6 +53,19 @@ public class StdLessonController {
     public boolean inviteStd(@RequestParam String stdnum, @RequestParam String inviteCode){
 
         return stdLessonService.saveInvite(stdnum,inviteCode);
+    }
+
+    /*
+    * 根据答题正确数量判分
+    * url:/stdLesson/judgeScore
+    * 请求方：get
+    *
+    * */
+    @GetMapping("/judgeScore")
+    public boolean judgeScore(@RequestParam Integer correctCount,
+                              @RequestParam String stdnum,
+                              @RequestParam Integer nodeId){
+        return stdLessonService.judgeScore(correctCount,stdnum,nodeId);
     }
 
 }

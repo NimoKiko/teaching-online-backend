@@ -20,4 +20,6 @@ public class StdLesson {
     private String stdnum;
     //学生姓名
     private  String stdname;
+    //学生成绩
+    private Integer score;
 }

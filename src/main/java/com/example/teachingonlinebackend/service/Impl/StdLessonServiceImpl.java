@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.teachingonlinebackend.entity.StdLesson;
 import com.example.teachingonlinebackend.mapper.StdLessonMapper;
 import com.example.teachingonlinebackend.service.StdLessonService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +45,22 @@ public class StdLessonServiceImpl extends ServiceImpl<StdLessonMapper, StdLesson
         System.out.println(success);
 
         return isSuccess;
+    }
+
+    @Override
+    public boolean judgeScore(Integer correctCount, String stdnum, Integer nodeId) {
+
+        Integer allTask = stdLessonMapper.getAllTask(nodeId);
+        //计算每道题的均分
+        double perScore = 100d / allTask;
+        System.out.println(perScore);
+        //计算该学生这个任务节点的总分
+        double score = perScore * correctCount;
+        //将分数根据学生id存到表里
+        boolean isUpdate = stdLessonMapper.saveScore((int)score,stdnum,nodeId);
+        //修改task_isfinished表中该学生对应任务节点的完成情况
+        boolean updateSituation = stdLessonMapper.updateSituation(stdnum,nodeId);
+
+        return true;
     }
 }

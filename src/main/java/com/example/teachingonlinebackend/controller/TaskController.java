@@ -3,6 +3,7 @@ package com.example.teachingonlinebackend.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.teachingonlinebackend.entity.Task;
 import com.example.teachingonlinebackend.service.Impl.TaskServiceImpl;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,6 +53,18 @@ public class TaskController {
         queryWrapper.select("*").eq("task_id",taskId);
 
         return taskService.remove(queryWrapper);
+    }
+
+    /*
+    * 根据stdnum和nodeId获取该学生此任务节点完成情况
+    * url:/task/getTaskSituation
+    * 请求方式：get
+    *
+    * */
+    @GetMapping("/getTaskSituation")
+    public Integer getTaskSituation(@RequestParam String stdnum,
+                                    @RequestParam Integer nodeId){
+        return taskService.getTaskSituation(stdnum,nodeId);
     }
 
 }
