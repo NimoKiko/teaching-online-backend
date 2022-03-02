@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.teachingonlinebackend.controller.dto.UserDto;
 import com.example.teachingonlinebackend.entity.Teacher;
 import com.example.teachingonlinebackend.service.Impl.TeacherServiceImpl;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -98,5 +99,17 @@ public class TeacherController {
     public boolean teaUpdateSex(@RequestParam String worknum, @RequestParam String sex){
 
         return teacherServiceImpl.updateSex(worknum,sex);
+    }
+
+    /*
+    * 教师结课，计算成绩的接口
+    * url:/tea/endClass
+    * 请求方式：get
+    *
+    * */
+    @GetMapping("/endClass")
+    public boolean endClass(@RequestParam Integer lessonId){
+        //通过lessonId将课程结束
+        return teacherServiceImpl.endClass(lessonId);
     }
 }

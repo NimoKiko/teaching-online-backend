@@ -9,6 +9,8 @@ import com.example.teachingonlinebackend.service.Impl.LessonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/lesson")
 public class LessonController {
@@ -64,6 +66,20 @@ public class LessonController {
 //        queryWrapper.orderByDesc("create_time");
         IPage<Lesson> lessonIPage = lessonServiceImpl.page(page,queryWrapper);
         return lessonIPage;
+    }
+
+    /*
+    * 获取课程是否已完结状态接口
+    * url:/lesson/isEnd
+    * 请求方式：get
+    *
+    * */
+    @GetMapping("/isEnd")
+    public Integer getLessonStatus(@RequestParam Integer lessonId){
+        QueryWrapper<Lesson> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("is_end").eq("lesson_id",lessonId);
+        Lesson target = lessonServiceImpl.getOne(queryWrapper);
+        return target.getIsEnd();
     }
 
 }

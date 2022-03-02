@@ -10,4 +10,6 @@ public interface TeacherService extends IService<Teacher> {
     String login(UserDto userDto);
 
     boolean updateSex(String teanum,String sex);
+
+    boolean endClass(Integer lessonId);
 }

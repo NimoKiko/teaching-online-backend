@@ -23,4 +23,6 @@ public class Lesson {
     private Integer total;
     //邀请码
     private String inviteCode;
+    //课程是否结束
+    private Integer isEnd;
 }
