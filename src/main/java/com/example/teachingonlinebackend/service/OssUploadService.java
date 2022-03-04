@@ -64,6 +64,10 @@ public class OssUploadService extends ServiceImpl<FileDataMapper, FileData> {
                 fileUrl = "final/pic/" + newName;
                 fileType = "img";
             }
+            if(suffix.equals(".MP4") || suffix.equals(".mp4")){
+                fileUrl = "final/vedio/" + newName;
+                fileType = "vedio";
+            }
             ossClient.putObject(bucketName, fileUrl, inputStream);
 
             String result = "https://" + bucketName + "." + endpoint + "/" + fileUrl;
