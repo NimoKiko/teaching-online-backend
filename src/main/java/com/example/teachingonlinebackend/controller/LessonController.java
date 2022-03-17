@@ -82,4 +82,27 @@ public class LessonController {
         return target.getIsEnd();
     }
 
+    /*
+    * 获取当前课程状态
+    * url:/lesson/currentStatus
+    * 请求方式：get
+    *
+    * */
+    @GetMapping("/currentStatus")
+    public Integer getCurrentStatus(@RequestParam Integer lessonId){
+        return lessonServiceImpl.getCurrentStatus(lessonId);
+    }
+
+    /*
+    * 更改课程状态（正在上课/不在上课）
+    * url:/lesson/isOnClass
+    * 请求方式：get
+    *
+    * */
+    @GetMapping("/isOnClass")
+    public boolean changeClassStatus(@RequestParam Integer lessonId){
+
+        return lessonServiceImpl.changeClassStatus(lessonId);
+    }
+
 }

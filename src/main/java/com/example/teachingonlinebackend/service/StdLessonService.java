@@ -8,4 +8,6 @@ public interface StdLessonService extends IService<StdLesson> {
 
     boolean judgeScore(Integer correctCount,String stdnum,Integer nodeId);
 
+    boolean studentSignIn(Integer lessonId, String stdnum);
+
 }

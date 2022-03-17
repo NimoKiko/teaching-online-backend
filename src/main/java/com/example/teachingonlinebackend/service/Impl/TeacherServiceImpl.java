@@ -30,7 +30,15 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         String result = null;
         List<Teacher> user = teacherMapper.getAccount(worknum,password);
         if(!user.isEmpty()){
-            result = "TEACHER";
+            System.out.println(user);
+            for(Teacher item : user){
+                String type = item.getType();
+                if(type.equals("教师")){
+                    result = "TEACHER";
+                } else if( type.equals("辅导员")){
+                    result = "ASSISTANT";
+                }
+            }
         } else{
             if(worknum.equals("admin") && password.equals("123456")) {
                 result = "ADMIN";

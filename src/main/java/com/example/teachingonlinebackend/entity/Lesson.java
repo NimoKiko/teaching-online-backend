@@ -25,4 +25,8 @@ public class Lesson {
     private String inviteCode;
     //课程是否结束
     private Integer isEnd;
+    //课程周次
+    private Integer totalWeek;
+    //是否正在上课
+    private Integer onClass;
 }

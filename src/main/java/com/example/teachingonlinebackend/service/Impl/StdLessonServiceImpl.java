@@ -63,4 +63,11 @@ public class StdLessonServiceImpl extends ServiceImpl<StdLessonMapper, StdLesson
 
         return true;
     }
+
+    @Override
+    public boolean studentSignIn(Integer lessonId, String stdnum) {
+
+        return stdLessonMapper.stdSignTimesAdd(lessonId,stdnum);
+
+    }
 }

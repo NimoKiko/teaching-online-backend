@@ -54,4 +54,28 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, Lesson> impleme
         }
         return sb.toString();
     }
+
+    //改变课程状态
+    public boolean changeClassStatus(Integer lessonId){
+        //根据lessonId获取当前状态
+
+        Integer currentStatus = lessonMapper.getCurrentStatus(lessonId);
+
+        if(currentStatus == 0 ){
+            //表示下课状态
+            return lessonMapper.changeStatus(lessonId,1);
+
+        } else if(currentStatus == 1){
+            //表示上课状态
+            return lessonMapper.changeStatus(lessonId,0);
+        }
+
+        return false;
+
+    }
+
+    //获取当前课程状态
+    public  Integer getCurrentStatus(Integer lessonId){
+        return lessonMapper.getCurrentStatus(lessonId);
+    }
 }

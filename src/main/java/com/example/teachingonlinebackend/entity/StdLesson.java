@@ -1,6 +1,8 @@
 package com.example.teachingonlinebackend.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -8,6 +10,9 @@ import lombok.Data;
 @TableName(value = "std_lesson")
 public class StdLesson {
 
+    //主键
+    @TableId(type = IdType.AUTO)
+    private Integer id;
     //课程序号
     @TableField("lesson_id")
     private Integer lessonId;
@@ -22,4 +27,6 @@ public class StdLesson {
     private  String stdname;
     //学生成绩
     private Integer score;
+    //签到次数
+    private Integer signTimes;
 }

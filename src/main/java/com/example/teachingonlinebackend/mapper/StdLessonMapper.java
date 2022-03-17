@@ -46,4 +46,8 @@ public interface StdLessonMapper extends BaseMapper<StdLesson> {
     //根据stdnum和nodeId对task_isfinished表中的is_finished字段进行更新
     @Update("update task_isfinished set is_finished = 1 where stdnum = #{stdnum} and node_id = #{nodeId}")
     boolean updateSituation(String stdnum,Integer nodeId);
+
+    //根据stdnum和lessonId找到对应的数据使打卡次数加一
+    @Update("update std_lesson set sign_times = sign_times+1 where stdnum = #{stdnum} and lesson_id = #{lessonId}")
+    boolean stdSignTimesAdd(Integer lessonId, String stdnum);
 }

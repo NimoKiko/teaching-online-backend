@@ -56,6 +56,18 @@ public class StdLessonController {
     }
 
     /*
+    * 学生签单接口
+    * url:/stdLesson/signIn
+    * 请求方式：get
+    * */
+    @GetMapping("/signIn")
+    public boolean signInCount(@RequestParam String stdnum,
+                               @RequestParam Integer lessonId){
+
+        return stdLessonService.studentSignIn(lessonId,stdnum);
+    }
+
+    /*
     * 根据答题正确数量判分
     * url:/stdLesson/judgeScore
     * 请求方：get
@@ -66,6 +78,17 @@ public class StdLessonController {
                               @RequestParam String stdnum,
                               @RequestParam Integer nodeId){
         return stdLessonService.judgeScore(correctCount,stdnum,nodeId);
+    }
+
+    /*
+    * 获取学生课表的全部信息
+    * url:/stdLesson/getList
+    * 请求：get
+    *
+    * */
+    @GetMapping("/getList")
+    public List<StdLesson> getAll(){
+        return stdLessonService.list();
     }
 
 }
